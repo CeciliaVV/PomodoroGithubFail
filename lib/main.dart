@@ -52,7 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int temporalMin;
   int temporalSeg;
   int bandera = 0;
-  int pomodoros_completos = 0;
   String minutesStr;
   String secondsStr;
 
@@ -67,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     secondsStr = (seconds % 60).toString().padLeft(2, '0');
 
     if (seconds < 1 && bandera == 1) {
-      pomodoros_completos++;
       return "Pomodoro completed";
     }
 
@@ -143,52 +141,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     SizedBox(height: 20),
                     Text(
-                      "$pomodoros_completos Pomodoros Completos",
+                      "Pomodoro",
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: "Calibri",
                           fontWeight: FontWeight.w500,
-                          fontSize: 30),
+                          fontSize: 50),
                     ),
                     SizedBox(height: 40),
-                    /*Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          CircularStepProgressIndicator(
-                            child: Text(
-                              formatHHMMSS(_start),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "Russo one",
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 50),
-                            ),
-                            totalSteps: 20,
-                            currentStep: 1,
-                            stepSize: 20,
-                            selectedColor: Colors.red,
-                            unselectedColor: Colors.purple[400],
-                            padding: 3.1416 / 80,
-                            width: 200,
-                            height: 200,
-                            startingAngle: -3.1416 * 2 / 3,
-                            arcSize: 3.1416 * 2 / 3 * 2,
-                            gradientColor: LinearGradient(
-                              colors: [Colors.red, Colors.purple[400]],
-                            ),
-                          ),
-                        ]),*/
-                    /*Text(
-                      formatHHMMSS(_start),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Russo one",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 50),
-                    ),*/
                     new CircularPercentIndicator(
                       radius: 330.0,
                       lineWidth: 20.0,
@@ -206,23 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Colors.black,
                       progressColor: Colors.greenAccent,
                     ),
-                    /*LiquidCustomProgressIndicator(
-                      direction: Axis.vertical,
-                      shapePath: _buildHeartPath(),
-                      center: Text(
-                        formato(_start),
-                        style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.tealAccent[400],
-                        ),
-                      ),
-                      valueColor: AlwaysStoppedAnimation(Colors.black),
-                      value: _start / initial_time,
-                      backgroundColor: Colors.white,
-                    ),*/
                     Spacer(),
-                    //Expanded(flex: 10, child: center_widget(paused)),
                     Spacer(),
                     SizedBox(height: 5),
                     Row(
@@ -231,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: <Widget>[
                           Expanded(
                             flex: 10,
-                            child: button("Inicio", reset, 140, 60, 25),
+                            child: button("Comenzar", reset, 140, 60, 25),
                           ),
                           Expanded(
                             flex: 10,
@@ -288,67 +233,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Path _buildHeartPath() {
-    double x = 1.3;
-    return Path()
-      ..moveTo(110 * x, 30 * x)
-      ..cubicTo(110 * x, 24 * x, 100 * x, 0, 60 * x, 0)
-      ..cubicTo(0, 0, 0, 75 * x, 0, 75 * x)
-      ..cubicTo(0, 110 * x, 40 * x, 154 * x, 110 * x, 190 * x)
-      ..cubicTo(180 * x, 154 * x, 220 * x, 110 * x, 220 * x, 75 * x)
-      ..cubicTo(220 * x, 75 * x, 220 * x, 0, 160 * x, 0)
-      ..cubicTo(130 * x, 0, 110 * x, 24 * x, 110 * x, 30 * x)
-      ..close();
-  }
-
-  /*ingresaMinutos(BuildContext context) {
-    paused = 1;
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text("Tiempo de Pomodoro"),
-              content: SizedBox(
-                  width: 100.0,
-                  height: 60.0,
-                  child: Center(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Minutos',
-                        labelText: 'Tiempo de Pomodoro',
-                        prefixIcon: Icon(Icons.alarm),
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      maxLength: 2,
-                      onChanged: (valor) {
-                        temporal = int.parse(valor);
-                      },
-                    ),
-                  )),
-              actions: [
-                TextButton(
-                  child: Text("Cancelar"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text("Aceptar"),
-                  onPressed: () {
-                    setState(() {
-                      minutosPom = temporal;
-                      _start = minutosPom * 60 + segundosPom;
-                      min_25 = minutosPom * 60 + segundosPom;
-                      initial_time = _start;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ));
-  }*/
-
   ingresaTiempo(BuildContext context) {
     paused = 1;
     showDialog(
@@ -359,20 +243,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 100.0,
                   height: 200.0,
                   child: Center(
-                      /*child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Segundos',
-                        labelText: 'Tiempo de Pomodoro',
-                        prefixIcon: Icon(Icons.alarm),
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      maxLength: 2,
-                      onChanged: (valor) {
-                        temporal = int.parse(valor);
-                      },
-                    ),*/
                       child: Form(
                           key: formKey,
                           child: SingleChildScrollView(
@@ -383,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   validator: (valor) {
                                     if (valor.isEmpty)
                                       return 'Debe ingresar datos';
-                                    if (int.parse(valor) > 60 ||
+                                    if (int.parse(valor) > 59 ||
                                         int.parse(valor) < 0)
                                       return 'Número no válido';
 
@@ -400,7 +270,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   validator: (valor) {
                                     if (valor.isEmpty)
                                       return 'Debe ingresar datos';
-                                    if (int.parse(valor) > 60 ||
+                                    if (int.parse(valor) > 59 ||
                                         int.parse(valor) < 0)
                                       return 'Número no válido';
 
@@ -444,30 +314,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                           )))),
-              /*actions: [
-                TextButton(
-                  child: Text("Cancelar"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text("Aceptar"),
-                  onPressed: () {
-                    setState(() {
-                      segundosPom = temporal;
-                      _start = minutosPom * 60 + segundosPom;
-                      min_25 = minutosPom * 60 + segundosPom;
-                      initial_time = _start;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              ],*/
             ));
   }
 
-  /*ingresaMinutosDes(BuildContext context) {
+  ingresaTiempoDescanso(BuildContext context) {
     paused = 1;
     showDialog(
         context: context,
@@ -475,91 +325,80 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text("Tiempo de Descanso"),
               content: SizedBox(
                   width: 100.0,
-                  height: 60.0,
+                  height: 200.0,
                   child: Center(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Minutos',
-                        labelText: 'Tiempo de Descanso',
-                        prefixIcon: Icon(Icons.pan_tool),
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      maxLength: 2,
-                      onChanged: (valor) {
-                        temporal = int.parse(valor);
-                      },
-                    ),
-                  )),
-              actions: [
-                TextButton(
-                  child: Text("Cancelar"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text("Aceptar"),
-                  onPressed: () {
-                    setState(() {
-                      minutosDes = temporal;
-                      _start = minutosDes * 60 + segundosDes;
-                      min_5 = minutosDes * 60 + segundosDes;
-                      initial_time = _start;
-                    });
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            ));
-  }*/
+                      child: Form(
+                          key: formKey,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  validator: (valor) {
+                                    if (valor.isEmpty)
+                                      return 'Debe ingresar datos';
+                                    if (int.parse(valor) > 59 ||
+                                        int.parse(valor) < 0)
+                                      return 'Número no válido';
 
-  /*ingresaSegundosDes(BuildContext context) {
-    paused = 1;
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text("Tiempo de Pomodoro"),
-              content: SizedBox(
-                  width: 100.0,
-                  height: 60.0,
-                  child: Center(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Segundos',
-                        labelText: 'Tiempo de Pomodoro',
-                        prefixIcon: Icon(Icons.alarm),
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      maxLength: 2,
-                      onChanged: (valor) {
-                        temporal = int.parse(valor);
-                      },
-                    ),
-                  )),
-              actions: [
-                TextButton(
-                  child: Text("Cancelar"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text("Aceptar"),
-                  onPressed: () {
-                    setState(() {
-                      segundosDes = temporal;
-                      min_5 = segundosDes;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
+                                    return null;
+                                  },
+                                  onSaved: (valor) =>
+                                      temporalMin = int.parse(valor),
+                                  decoration:
+                                      InputDecoration(labelText: 'Minutos'),
+                                ),
+                                SizedBox(height: 15.0),
+                                TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  validator: (valor) {
+                                    if (valor.isEmpty)
+                                      return 'Debe ingresar datos';
+                                    if (int.parse(valor) > 59 ||
+                                        int.parse(valor) < 0)
+                                      return 'Número no válido';
+
+                                    return null;
+                                  },
+                                  onSaved: (valor) =>
+                                      temporalSeg = int.parse(valor),
+                                  decoration:
+                                      InputDecoration(labelText: 'Segundos'),
+                                ),
+                                SizedBox(height: 50.0),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButton(
+                                        child: Text("Cancelar"),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      SizedBox(width: 20.0),
+                                      TextButton(
+                                        child: Text("Aceptar"),
+                                        onPressed: () {
+                                          if (formKey.currentState.validate()) {
+                                            formKey.currentState.save();
+                                            setState(() {
+                                              minutosDes = temporalMin;
+                                              segundosDes = temporalSeg;
+                                              min_5 =
+                                                  minutosDes * 60 + segundosDes;
+                                              _start = min_5;
+                                              initial_time = min_5;
+                                            });
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                      ),
+                                    ])
+                              ],
+                            ),
+                          )))),
             ));
-  }*/
+  }
 
   Widget button(String text, int status, double button_width,
       double button_height, double radius) {
@@ -638,17 +477,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   paused = 1;
               }
               if (text == "$minutosPom Min $segundosPom Seg") {
-                print("hola");
-                //ingresaMinutos(context);
                 ingresaTiempo(context);
-
                 reset_25 = 1;
               } else if (text == "$minutosDes Min $segundosDes Seg") {
-                //ingresaMinutosDes(context);
-                //ingresaSegundosDes(context);
+                ingresaTiempoDescanso(context);
                 reset_5 = 1;
               }
-              if (text == "Inicio") {
+              if (text == "Comenzar") {
+                _start = min_25;
+                initial_time = min_25;
                 reset = 1;
               }
             });
