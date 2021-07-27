@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final formKey = new GlobalKey<FormState>();
   //variable para el sonido de la notificación
   final audioPlayer = AudioCache();
-  //función que convierte segundo al formato MM:SS
+  //función que convierte los segundos al formato MM:SS
   String formato(int seconds) {
     seconds = (seconds % 3600).truncate();
     int minutes = (seconds / 60).truncate();
@@ -75,11 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
     minutesStr = (minutes).toString().padLeft(2, '0');
     secondsStr = (seconds % 60).toString().padLeft(2, '0');
 
-    if (seconds < 1 && bandera == 1) {
-      //audioPlayer.play("11.mp3");
+    if (seconds < 1 && bandera == 1)
       return "Pomodoro completado";
-    }
-
+    
     return "$minutesStr:$secondsStr";
   }
 
@@ -100,7 +98,6 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         //si se acaba el tiempo de pomodoro, inicia el tiempo de descanso
         if (_start < 1 && bandera == 0) {
-          //audioPlayer.play("11.mp3");
           _start = min_5;
           reset_5 = 0;
           initial_time = min_5;
@@ -108,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
         } else {
           //si se acaba el tiempo de descanso, el tiempo inicial vuelve al tiempo de pomodoro y se pausa
           if (_start < 1 && bandera == 1) {
-            //audioPlayer.play("11.mp3");
             paused = 1;
             _start = min_25;
             initial_time = min_25;
